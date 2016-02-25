@@ -30,6 +30,37 @@ namespace Hanabi
         }
     }
 
+    public class Game//TODO: Read about metaclasses in C#
+    {
+        uint Turns;
+        uint CardsPlayed;
+        uint Riscs;
+        ushort ActivePlayer; 
+        Game()
+        {
+            Turns = 0;
+            CardsPlayed = 0;
+            Riscs = 0;
+            ActivePlayer = 1;
+            string inputString = Console.ReadLine();
+            StartParser(inputString);
+            inputString = Console.ReadLine();
+            while (inputString!=null)
+            {
+                TurnParser(inputString);
+                inputString= Console.ReadLine();
+            }
+            Console.WriteLine("Turn: " + Turns + ", cards: " + CardsPlayed + ", with risk: " + Riscs);
+        }
+        void StartParser(string Line)
+        {
+
+        }
+        void TurnParser(string line)
+        {
+
+        }
+    }
 
     class Program
     {
