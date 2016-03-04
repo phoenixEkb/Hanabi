@@ -28,6 +28,22 @@ namespace Hanabi
                 default: CardColor = Color.Empty; break;//or throw some exception
             }
         }
+
+        public Card(string cardInfo)
+        {
+            switch (cardInfo[0])
+            {
+                case ('R'): CardColor = Color.Red; break;
+                case ('G'): CardColor = Color.Green; break;
+                case ('B'): CardColor = Color.Blue; break;
+                case ('Y'): CardColor = Color.Yellow; break;
+                case ('W'):
+                    CardColor = Color.White; break;
+                    CardColor = Color.Empty; break;//
+                default: CardColor = Color.Empty; break;//or throw some exception
+            }
+            CardCost =
+        }
     }
 
     public class Game//TODO: Read about metaclasses in C#
@@ -35,7 +51,7 @@ namespace Hanabi
         uint Turns;
         uint CardsPlayed;
         uint Riscs;
-        ushort ActivePlayer; 
+        ushort ActivePlayer;
         Game()
         {
             Turns = 0;
@@ -43,20 +59,44 @@ namespace Hanabi
             Riscs = 0;
             ActivePlayer = 1;
             string inputString = Console.ReadLine();
-            StartParser(inputString);
+            startParser(inputString);
             inputString = Console.ReadLine();
-            while (inputString!=null)
+            while (inputString != null)
             {
-                TurnParser(inputString);
-                inputString= Console.ReadLine();
+                turnParser(inputString);
+                inputString = Console.ReadLine();
             }
             Console.WriteLine("Turn: " + Turns + ", cards: " + CardsPlayed + ", with risk: " + Riscs);
         }
-        void StartParser(string Line)
+        void startParser(string Line)
+        {
+            var cards = Line.Split(' ').Skip(5);
+            for (var i = 0; i < cards.Count(); i++)
+            {
+                if (i < 5)
+                  //  FirstPlayer.addCard(Card(cards[i][1],cards[i][2]));
+                else if (i < 10 && i > 5)//TODO check this out
+                    //SecondPlayer.addCard(cards[i]);
+                else
+                    Deck.addCard(Card(cards[i]));
+            }
+        }
+        void turnParser(string line)
         {
 
         }
-        void TurnParser(string line)
+    }
+
+    class Deck
+    {
+        List<Card> deck;
+
+        Deck()
+        {
+            deck = new List<Card>();
+        }
+
+        void addCard(Card newCard)
         {
 
         }
@@ -67,7 +107,7 @@ namespace Hanabi
         static void Main(string[] args)
         {
             Card ex = new Card("Red", 2);
-            Console.WriteLine(ex.CardColor.ToString()+" "+ex.CardCost);
+            Console.WriteLine(ex.CardColor.ToString() + " " + ex.CardCost);
         }
     }
 }
