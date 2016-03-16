@@ -37,14 +37,70 @@ namespace Hanabi
                 case ('G'): CardColor = Color.Green; break;
                 case ('B'): CardColor = Color.Blue; break;
                 case ('Y'): CardColor = Color.Yellow; break;
-                case ('W'):
-                    CardColor = Color.White; break;
-                    CardColor = Color.Empty; break;//
+                case ('W'): CardColor = Color.White; break;
+                    
                 default: CardColor = Color.Empty; break;//or throw some exception
             }
-            CardCost =
+
+            CardCost = (uint)char.GetNumericValue(cardInfo[1]);
+        }
+        
+
+    }
+
+    class Deck
+    {
+        Queue<Card> deck;
+
+        public Deck()
+        {
+            deck = new Queue<Card>();
+        }
+
+        public void addCard(Card newCard)
+        {
+            deck.Enqueue(newCard);//add to end
+        }
+
+        public Card getCard()
+        {
+            return deck.Dequeue();
+            //catch if empty?
         }
     }
+
+    class Player
+    {
+        List<Card> Hand;
+
+        public Player()
+        {
+            Hand = new List<Card>();//can specify the size
+        }
+
+        public void Take(Card newCard)
+        {
+            Hand.Add(newCard);
+        }
+
+        public Card Play(int position,Card topDeck)
+        {
+            Card CardToPlay = Hand[position];
+            Hand.RemoveAt(position);
+            if (topDeck.CardCost!=0)
+            Hand.Add(topDeck);
+            return (CardToPlay);
+        }
+
+        //bool Tell(int[] costs)
+        //{
+
+        //}
+
+        //bool Tell()
+
+    }
+
 
     public class Game//TODO: Read about metaclasses in C#
     {
@@ -52,14 +108,23 @@ namespace Hanabi
         uint CardsPlayed;
         uint Riscs;
         ushort ActivePlayer;
-        Game()
+        Deck GameDeck;
+        Player[] Players;
+
+       public Game()//TODO :divide class initialization and string logics(AKA turn parser)
         {
             Turns = 0;
             CardsPlayed = 0;
             Riscs = 0;
             ActivePlayer = 1;
-            string inputString = Console.ReadLine();
+            GameDeck = new Deck();
+            Players = new Player[2];//TODO - написать конструктор для массива плееров?
+            Players[0] = new Player();
+            Players[1] = new Player();
+            string inputString = "Start new game with deck R1 G2 B3 W4 Y5 R1 R1 B1 B2 W1 W2 W1";//Console.ReadLine();
             startParser(inputString);
+            
+
             inputString = Console.ReadLine();
             while (inputString != null)
             {
@@ -68,37 +133,25 @@ namespace Hanabi
             }
             Console.WriteLine("Turn: " + Turns + ", cards: " + CardsPlayed + ", with risk: " + Riscs);
         }
+
         void startParser(string Line)
         {
-            var cards = Line.Split(' ').Skip(5);
+            var cards = Line.Split(' ').Skip(5).ToArray();
             for (var i = 0; i < cards.Count(); i++)
             {
+                Card topDeck = new Card(cards[i]);
                 if (i < 5)
-                  //  FirstPlayer.addCard(Card(cards[i][1],cards[i][2]));
-                else if (i < 10 && i > 5)//TODO check this out
-                    //SecondPlayer.addCard(cards[i]);
+                    Players[0].Take(topDeck);
+                else if (i >= 5 && i < 10)//TODO check this out
+                    Players[1].Take(topDeck);
                 else
-                    Deck.addCard(Card(cards[i]));
+                    GameDeck.addCard(topDeck);
             }
         }
+        
         void turnParser(string line)
         {
-
-        }
-    }
-
-    class Deck
-    {
-        List<Card> deck;
-
-        Deck()
-        {
-            deck = new List<Card>();
-        }
-
-        void addCard(Card newCard)
-        {
-
+            
         }
     }
 
@@ -106,8 +159,7 @@ namespace Hanabi
     {
         static void Main(string[] args)
         {
-            Card ex = new Card("Red", 2);
-            Console.WriteLine(ex.CardColor.ToString() + " " + ex.CardCost);
+            Game newGame = new Game();
         }
     }
 }
