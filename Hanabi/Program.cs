@@ -66,7 +66,7 @@ namespace Hanabi
         public Card getCard()
         {
             if (!IsEmpty())
-            return deck.Dequeue();
+                return deck.Dequeue();
             return new Card();
             //catch if empty?
         }
@@ -125,13 +125,13 @@ namespace Hanabi
 
     class Board
     {
-        Dictionary<Color,uint> CardsOnBoard;
-        Board()
+        Dictionary<Color, uint> CardsOnBoard;
+        public Board()
         {
             CardsOnBoard = new Dictionary<Color, uint>();
         }
 
-        bool AddCard(Card CardToAdd)
+        public bool AddCard(Card CardToAdd)
         {
             if (CardToAdd.CardCost == CardsOnBoard[CardToAdd.CardColor])
             {
@@ -145,15 +145,15 @@ namespace Hanabi
             return false;
         }
 
-        uint Cost()
+        public uint Cost()
         {
-            uint SummaryCardsCost=0;
-            foreach(var Card in CardsOnBoard)
+            uint SummaryCardsCost = 0;
+            foreach (var Card in CardsOnBoard)
             {
                 SummaryCardsCost += Card.Value;
             }
             return SummaryCardsCost;
-         }
+        }
     }
 
     public class HanabiGame//TODO: Read about metaclasses in C#
@@ -164,6 +164,8 @@ namespace Hanabi
         ushort ActivePlayerNumber, InactivePlayerNumber;//TODO: заменить на указатели, менять указатели
         Deck GameDeck;
         Player[] Players;
+        Board GameBoard;
+        bool GameFinished;
 
         public HanabiGame()//TODO :divide class initialization and string logics(AKA turn parser)
         {
@@ -173,15 +175,21 @@ namespace Hanabi
             ActivePlayerNumber = 0;
             InactivePlayerNumber = 1;
             GameDeck = new Deck();
+            GameBoard = new Board();
             Players = new Player[2];//TODO - написать конструктор для массива плееров?
             Players[0] = new Player();
             Players[1] = new Player();
+            GameFinished = false;
+
+
+
             string inputString = "Start new game with deck R1 G2 B3 W4 Y5 R1 R1 B1 B2 W1 W2 W1";//Console.ReadLine();
             startParser(inputString);
             inputString = Console.ReadLine();
-            while (inputString != null)
+            
+            while (!GameFinished&&inputString != null)
             {
-                
+
                 turnParser(inputString);
                 Turns++;//если ход корректный
 
@@ -190,7 +198,7 @@ namespace Hanabi
                 InactivePlayerNumber = temp;
                 inputString = Console.ReadLine();//подумать, что делать, если игра окончена.
             }
-            Console.WriteLine("Turn:{0}, cards: {1}, with risk: {2}", Turns, CardsPlayed,Riscs);//TODO - проверить корректность после переработки
+            Console.WriteLine("Turn:{0}, cards: {1}, with risk: {2}", Turns, CardsPlayed, Riscs);//TODO - проверить корректность после переработки
         }
 
         void startParser(string line)
@@ -215,7 +223,12 @@ namespace Hanabi
             {
                 case "Play":
                     {
-                        //do sth
+                        //TODO:сделать проверку, а есть ли на этой позиции вообще карта. Вроде ненужно.
+                        var topDeck = GameDeck.getCard();
+                        var playedCard = Players[ActivePlayerNumber].Play(Int32.Parse(action[2]), topDeck);
+                        //risky turn check somewhere here.
+                        if (!GameBoard.AddCard(playedCard))
+                            GameFinished = true;
                     }
                     break;
                 case "Drop":
@@ -230,7 +243,7 @@ namespace Hanabi
                     {
                         if (action[1] == "color")
                         {
-
+                                
                         }
                         else
                         {
@@ -247,7 +260,7 @@ namespace Hanabi
     {
         static void Main(string[] args)
         {
-     
+
             HanabiGame newGame = new HanabiGame();
         }
     }
