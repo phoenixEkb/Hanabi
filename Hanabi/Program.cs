@@ -186,23 +186,31 @@ namespace Hanabi
 
     }
 
-
     class Board
     {
         Dictionary<Color, uint> CardsOnBoard;
+        uint playedCardAmount;
         public Board()
         {
             CardsOnBoard = new Dictionary<Color, uint>();
+            CardsOnBoard[Color.Blue] = 0;
+            CardsOnBoard[Color.Red] = 0;
+            CardsOnBoard[Color.Yellow] = 0;
+            CardsOnBoard[Color.White] = 0;
+            CardsOnBoard[Color.Green] = 0;//это печально
+            playedCardAmount = 0;
         }
 
         public bool AddCard(Card CardToAdd)
         {
-            if (CardToAdd.CardCost == CardsOnBoard[CardToAdd.CardColor])
+
+            if (CardToAdd.CardCost == CardsOnBoard[CardToAdd.CardColor] + 1)
             {
                 CardsOnBoard[CardToAdd.CardColor] += 1;
                 if (CardsOnBoard[CardToAdd.CardColor] == 5)
                 {
                     CardsOnBoard[CardToAdd.CardColor] = 0;
+                    playedCardAmount += 5;
                 }
                 return true;
             }
@@ -216,7 +224,7 @@ namespace Hanabi
             {
                 SummaryCardsCost += Card.Value;
             }
-            return SummaryCardsCost;
+            return SummaryCardsCost + playedCardAmount;
         }
     }
 
@@ -231,7 +239,9 @@ namespace Hanabi
         Board GameBoard;
         bool GameFinished;
 
-        public HanabiGame()//TODO :divide class initialization and string logics(AKA turn parser)
+        public string nextGameStartString;
+
+        public HanabiGame(string startString)//TODO :divide class initialization and string logics(AKA turn parser)
         {
             Turns = 0;
             CardsPlayed = 0;
@@ -244,29 +254,26 @@ namespace Hanabi
             Players[0] = new Player();
             Players[1] = new Player();
             GameFinished = false;
+            nextGameStartString = "";
 
-
-
-            string inputString = Console.ReadLine();//Console.ReadLine();
-            startParser(inputString);
-            inputString = Console.ReadLine();
-
+            startParser(startString);
+            string inputString = Console.ReadLine();
             while (!GameFinished && inputString != null)
             {
-
                 turnParser(inputString);
+                if (nextGameStartString == "") Turns++;//если ход корректный, то отработает
                 if (GameFinished)
                 {
                     CardsPlayed = GameBoard.Cost();
+                    break;
                 }
-                Turns++;//если ход корректный, то отработает
-
                 var temp = ActivePlayerNumber;
                 ActivePlayerNumber = InactivePlayerNumber;
                 InactivePlayerNumber = temp;
                 inputString = Console.ReadLine();//подумать, что делать, если игра окончена.
             }
-            Console.WriteLine("Turn:{0}, cards: {1}, with risk: {2}", Turns, CardsPlayed, Riscs);//TODO - проверить корректность после переработки
+
+            if (Turns>0)Console.WriteLine("Turn: {0}, cards: {1}, with risk: {2}", Turns, CardsPlayed, Riscs);//TODO - проверить корректность после переработки
         }
 
         void startParser(string line)
@@ -312,7 +319,7 @@ namespace Hanabi
                         if (action[1] == "color")
                         {
                             string TelledCardColor = action[2];
-                            var positions = action.Skip(6).Select(pos => Int32.Parse(pos));
+                            var positions = action.Skip(5).Select(pos => Int32.Parse(pos));
                             bool isTurnCorrect;
                             for (int i = 0; i < Players[InactivePlayerNumber].Hand.Count(); i++)
                             {
@@ -326,12 +333,12 @@ namespace Hanabi
                                     break;
                                 }
                             }
-                            
+
                         }
                         else
                         {
                             uint TelledCardCost = UInt32.Parse(action[2]);
-                            var positions = action.Skip(6).Select(pos => Int32.Parse(pos));
+                            var positions = action.Skip(5).Select(pos => Int32.Parse(pos));
                             bool isTurnCorrect;
                             for (int i = 0; i < Players[InactivePlayerNumber].Hand.Count(); i++)
                             {
@@ -349,6 +356,12 @@ namespace Hanabi
                         }
                     }
                     break;
+                default:
+                    {
+                        GameFinished = true;
+                        nextGameStartString = line;
+                        break;
+                    }
             }
         }
 
@@ -358,8 +371,19 @@ namespace Hanabi
     {
         static void Main(string[] args)
         {
-
-            HanabiGame newGame = new HanabiGame();
+            string startString = "";
+            while (true)
+            {
+                if (startString == null) break;
+                if (startString == "")
+                    startString = Console.ReadLine();
+                HanabiGame newGame = new HanabiGame(startString);
+                if (newGame.nextGameStartString != "")
+                {
+                    startString = newGame.nextGameStartString;
+                }
+                else startString = "";
+            }
         }
     }
 }

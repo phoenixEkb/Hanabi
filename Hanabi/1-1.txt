@@ -1,0 +1,233 @@
+> Start new game with deck R1 R2 R3 R4 R5 R1 R2 R3 R4 R5 R1 R2
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Play card 1
+Turn: 1, cards: 0, with risk: 0
+Turn: 1, Score: 0, Finished: True
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R3 R4 R5 R1
+           Table: R0 G0 B0 W0 Y0
+> Start new game with deck R1 R2 R3 R4 R5 R1 R2 R3 R4 R5 R1 R2
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 1 for cards 0
+Turn: 1, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Play card 0
+Turn: 2, Score: 1, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R2 R3 R4 R5 R1
+           Table: R1 G0 B0 W0 Y0
+> Play card 2
+Turn: 3, cards: 1, with risk: 0
+Turn: 3, Score: 1, Finished: True
+  Current player: R2 R3 R4 R5 R1
+     Next player: R1 R2 R4 R5 R2
+           Table: R1 G0 B0 W0 Y0
+> Start new game with deck R1 R2 R3 R4 R5 G1 G2 G3 G4 G5 Y1 Y2
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: G1 G2 G3 G4 G5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 1 for cards 0
+Turn: 1, Score: 0, Finished: False
+  Current player: G1 G2 G3 G4 G5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Play card 0
+Turn: 2, Score: 1, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: G2 G3 G4 G5 Y1
+           Table: R0 G1 B0 W0 Y0
+> Play card 1
+Turn: 3, cards: 1, with risk: 0
+Turn: 3, Score: 1, Finished: True
+  Current player: G2 G3 G4 G5 Y1
+     Next player: R1 R3 R4 R5 Y2
+           Table: R0 G1 B0 W0 Y0
+> Start new game with deck R1 R2 R3 R4 R5 R1 G2 G3 G4 G5 Y1 Y2
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 G2 G3 G4 G5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 1 for cards 0
+Turn: 1, Score: 0, Finished: False
+  Current player: R1 G2 G3 G4 G5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Play card 0
+Turn: 2, Score: 1, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: G2 G3 G4 G5 Y1
+           Table: R1 G0 B0 W0 Y0
+> Play card 0
+Turn: 3, cards: 1, with risk: 0
+Turn: 3, Score: 1, Finished: True
+  Current player: G2 G3 G4 G5 Y1
+     Next player: R2 R3 R4 R5 Y2
+           Table: R1 G0 B0 W0 Y0
+> Start new game with deck R1 Y2 R3 R4 R5 R1 G2 G3 G4 G5 Y1 Y1
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 Y2 R3 R4 R5
+     Next player: R1 G2 G3 G4 G5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 1 for cards 0
+Turn: 1, Score: 0, Finished: False
+  Current player: R1 G2 G3 G4 G5
+     Next player: R1 Y2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Play card 0
+Turn: 2, Score: 1, Finished: False
+  Current player: R1 Y2 R3 R4 R5
+     Next player: G2 G3 G4 G5 Y1
+           Table: R1 G0 B0 W0 Y0
+> Tell rank 1 for cards 4
+Turn: 3, Score: 1, Finished: False
+  Current player: G2 G3 G4 G5 Y1
+     Next player: R1 Y2 R3 R4 R5
+           Table: R1 G0 B0 W0 Y0
+> Tell rank 1 for cards 0
+Turn: 4, Score: 1, Finished: False
+  Current player: R1 Y2 R3 R4 R5
+     Next player: G2 G3 G4 G5 Y1
+           Table: R1 G0 B0 W0 Y0
+> Tell color Yellow for cards 4
+Turn: 5, Score: 1, Finished: False
+  Current player: G2 G3 G4 G5 Y1
+     Next player: R1 Y2 R3 R4 R5
+           Table: R1 G0 B0 W0 Y0
+> Play card 4
+Turn: 6, cards: 2, with risk: 0
+Turn: 6, Score: 2, Finished: True
+  Current player: R1 Y2 R3 R4 R5
+     Next player: G2 G3 G4 G5 Y1
+           Table: R1 G0 B0 W0 Y1
+> Start new game with deck R1 Y2 R3 R4 R5 R1 G2 G3 G4 G5 R1 Y1 R2 R3
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 Y2 R3 R4 R5
+     Next player: R1 G2 G3 G4 G5
+           Table: R0 G0 B0 W0 Y0
+> Drop card 0
+Turn: 1, Score: 0, Finished: False
+  Current player: R1 G2 G3 G4 G5
+     Next player: Y2 R3 R4 R5 R1
+           Table: R0 G0 B0 W0 Y0
+> Drop card 1
+Turn: 2, Score: 0, Finished: False
+  Current player: Y2 R3 R4 R5 R1
+     Next player: R1 G3 G4 G5 Y1
+           Table: R0 G0 B0 W0 Y0
+> Drop card 2
+Turn: 3, Score: 0, Finished: False
+  Current player: R1 G3 G4 G5 Y1
+     Next player: Y2 R3 R5 R1 R2
+           Table: R0 G0 B0 W0 Y0
+> Drop card 3
+Turn: 4, cards: 0, with risk: 0
+Turn: 4, Score: 0, Finished: True
+  Current player: Y2 R3 R5 R1 R2
+     Next player: R1 G3 G4 Y1 R3
+           Table: R0 G0 B0 W0 Y0
+> Start new game with deck R1 Y2 R3 R4 R5 R1 G2 G3 G4 G5 R1 Y1 R2 R3 R4
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 Y2 R3 R4 R5
+     Next player: R1 G2 G3 G4 G5
+           Table: R0 G0 B0 W0 Y0
+> Start new game with deck R1 Y2 R3 R4 R5 R1 G2 G3 G4 G5 R1 Y1 R2 R3 R4
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 Y2 R3 R4 R5
+     Next player: R1 G2 G3 G4 G5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 1 for cards 0
+Turn: 1, Score: 0, Finished: False
+  Current player: R1 G2 G3 G4 G5
+     Next player: R1 Y2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Start new game with deck R1 Y2 R3 R4 R5 R1 G2 G3 G4 G5 R1 Y1 R2 R3 R4
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 Y2 R3 R4 R5
+     Next player: R1 G2 G3 G4 G5
+           Table: R0 G0 B0 W0 Y0
+> Start new game with deck R1 R2 R3 R4 R5 R1 R2 R3 R4 R5 Y1 Y2
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 2 for cards 1
+Turn: 1, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 1 for cards 0
+Turn: 2, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 3 for cards 2
+Turn: 3, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 1 for cards 0
+Turn: 4, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 4 for cards 3
+Turn: 5, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 1 for cards 0
+Turn: 6, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 5 for cards 4
+Turn: 7, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Play card 0
+Turn: 8, Score: 1, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: R2 R3 R4 R5 Y1
+           Table: R1 G0 B0 W0 Y0
+> Tell rank 5 for cards 0
+Turn: 9, cards: 1, with risk: 0
+Turn: 9, Score: 1, Finished: True
+  Current player: R2 R3 R4 R5 Y1
+     Next player: R1 R2 R3 R4 R5
+           Table: R1 G0 B0 W0 Y0
+> Start new game with deck R1 R2 R3 R4 R5 G1 R1 R2 R3 R4 Y1 Y2
+Turn: 0, Score: 0, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: G1 R1 R2 R3 R4
+           Table: R0 G0 B0 W0 Y0
+> Tell rank 1 for cards 0 1
+Turn: 1, Score: 0, Finished: False
+  Current player: G1 R1 R2 R3 R4
+     Next player: R1 R2 R3 R4 R5
+           Table: R0 G0 B0 W0 Y0
+> Play card 1
+Turn: 2, Score: 1, Finished: False
+  Current player: R1 R2 R3 R4 R5
+     Next player: G1 R2 R3 R4 Y1
+           Table: R1 G0 B0 W0 Y0
+> Tell color Red for cards 1 2 3
+Turn: 3, Score: 1, Finished: False
+  Current player: G1 R2 R3 R4 Y1
+     Next player: R1 R2 R3 R4 R5
+           Table: R1 G0 B0 W0 Y0
+> Play card 0
+Turn: 4, cards: 2, with risk: 0
+Turn: 4, Score: 2, Finished: True
+  Current player: R1 R2 R3 R4 R5
+     Next player: R2 R3 R4 Y1 Y2
+           Table: R1 G1 B0 W0 Y0
