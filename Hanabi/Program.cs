@@ -9,6 +9,7 @@ namespace Hanabi
 {
     enum Color { Empty, Red, Green, Blue, Yellow, White };
 
+
     struct Card
     {
         public Color CardColor;
@@ -44,8 +45,12 @@ namespace Hanabi
             }
 
             CardCost = (uint)char.GetNumericValue(cardInfo[1]);
-        }
 
+        }
+        public bool IsColorEqual(string color)
+        {
+            return (CardColor.ToString() == color);
+        }
 
     }
 
@@ -80,16 +85,16 @@ namespace Hanabi
 
     class Player
     {
-        List<Card> Hand;
+        public List<CardWithInformation> Hand;
 
         public Player()
         {
-            Hand = new List<Card>();//can specify the size
+            Hand = new List<CardWithInformation>();//can specify the size
         }
 
         public void Take(Card newCard)
         {
-            Hand.Add(newCard);
+            Hand.Add(new CardWithInformation(newCard));
         }
 
         void RemoveCard(int position)
@@ -97,9 +102,9 @@ namespace Hanabi
             Hand.RemoveAt(position);
         }
 
-        public Card Play(int position, Card topDeck)//шта эта делает? переименовать чутка
+        public Card Play(int position, Card topDeck)
         {
-            Card CardToPlay = Hand[position];
+            Card CardToPlay = Hand[position].realCard;
             RemoveCard(position);
             if (topDeck.CardCost != 0)//подумать
                 Take(topDeck);
@@ -114,6 +119,8 @@ namespace Hanabi
         }
 
 
+
+
         //public bool Tell(uint cost, int[] positions)
         //{
 
@@ -122,6 +129,63 @@ namespace Hanabi
         //public bool Tell(string color, int[] positions)
 
     }
+
+    class CardWithInformation
+    {
+        public Card realCard;
+        bool isColorKnown, isCostKnown;
+        List<string> ImpossibleColors;
+        List<uint> ImpossibleCosts;
+
+        public CardWithInformation(Card newCard)
+        {
+            realCard = newCard;
+            ImpossibleColors = new List<string>();
+            ImpossibleCosts = new List<uint>();
+            isColorKnown = false;
+            isCostKnown = false;
+        }
+
+        public bool AddCorrectInformation(string newColor)
+        {
+            if (realCard.IsColorEqual(newColor))
+            {
+                isColorKnown = true;
+                return true;
+            }
+            else return false;
+        }
+
+        public bool AddCorrectInformation(uint newCost)
+        {
+            if (newCost == realCard.CardCost)
+            {
+                isCostKnown = true;
+                return true;
+            }
+            else return false;
+        }
+
+        public bool AddIncorrectInformation(string newColor)
+        {
+            if (realCard.IsColorEqual(newColor)) return false;
+            ImpossibleColors.Add(newColor);
+            if (ImpossibleColors.Count == 4)
+                isColorKnown = true;
+            return true;
+        }
+
+        public bool AddIncorrectInformation(uint newCost)
+        {
+            if (newCost == realCard.CardCost) return false;
+            ImpossibleCosts.Add(newCost);
+            if (ImpossibleCosts.Count == 4)
+                isCostKnown = true;
+            return true;
+        }
+
+    }
+
 
     class Board
     {
@@ -183,15 +247,19 @@ namespace Hanabi
 
 
 
-            string inputString = "Start new game with deck R1 G2 B3 W4 Y5 R1 R1 B1 B2 W1 W2 W1";//Console.ReadLine();
+            string inputString = Console.ReadLine();//Console.ReadLine();
             startParser(inputString);
             inputString = Console.ReadLine();
-            
-            while (!GameFinished&&inputString != null)
+
+            while (!GameFinished && inputString != null)
             {
 
                 turnParser(inputString);
-                Turns++;//если ход корректный
+                if (GameFinished)
+                {
+                    CardsPlayed = GameBoard.Cost();
+                }
+                Turns++;//если ход корректный, то отработает
 
                 var temp = ActivePlayerNumber;
                 ActivePlayerNumber = InactivePlayerNumber;
@@ -243,10 +311,40 @@ namespace Hanabi
                     {
                         if (action[1] == "color")
                         {
-                                
+                            string TelledCardColor = action[2];
+                            var positions = action.Skip(6).Select(pos => Int32.Parse(pos));
+                            bool isTurnCorrect;
+                            for (int i = 0; i < Players[InactivePlayerNumber].Hand.Count(); i++)
+                            {
+                                if (positions.Contains(i))
+                                    isTurnCorrect = Players[InactivePlayerNumber].Hand[i].AddCorrectInformation(TelledCardColor);
+                                else
+                                    isTurnCorrect = Players[InactivePlayerNumber].Hand[i].AddIncorrectInformation(TelledCardColor);
+                                if (!isTurnCorrect)
+                                {
+                                    GameFinished = true;
+                                    break;
+                                }
+                            }
+                            
                         }
                         else
                         {
+                            uint TelledCardCost = UInt32.Parse(action[2]);
+                            var positions = action.Skip(6).Select(pos => Int32.Parse(pos));
+                            bool isTurnCorrect;
+                            for (int i = 0; i < Players[InactivePlayerNumber].Hand.Count(); i++)
+                            {
+                                if (positions.Contains(i))
+                                    isTurnCorrect = Players[InactivePlayerNumber].Hand[i].AddCorrectInformation(TelledCardCost);
+                                else
+                                    isTurnCorrect = Players[InactivePlayerNumber].Hand[i].AddIncorrectInformation(TelledCardCost);
+                                if (!isTurnCorrect)
+                                {
+                                    GameFinished = true;
+                                    break;
+                                }
+                            }
 
                         }
                     }
