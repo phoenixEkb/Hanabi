@@ -207,11 +207,6 @@ namespace Hanabi
             if (CardToAdd.CardCost == CardsOnBoard[CardToAdd.CardColor] + 1)
             {
                 CardsOnBoard[CardToAdd.CardColor] += 1;
-                if (CardsOnBoard[CardToAdd.CardColor] == 5)
-                {
-                    CardsOnBoard[CardToAdd.CardColor] = 0;
-                    playedCardAmount += 5;
-                }
                 return true;
             }
             return false;
@@ -261,7 +256,8 @@ namespace Hanabi
             while (!GameFinished && inputString != null)
             {
                 turnParser(inputString);
-                if (nextGameStartString == "") Turns++;//если ход корректный, то отработает
+                if (nextGameStartString != "") break; //если ход корректный, то отработает
+                Turns++;
                 if (GameFinished)
                 {
                     CardsPlayed = GameBoard.Cost();
@@ -273,7 +269,7 @@ namespace Hanabi
                 inputString = Console.ReadLine();//подумать, что делать, если игра окончена.
             }
 
-            if (Turns>0)Console.WriteLine("Turn: {0}, cards: {1}, with risk: {2}", Turns, CardsPlayed, Riscs);//TODO - проверить корректность после переработки
+            if (Turns > 0&&GameFinished) Console.WriteLine("Turn: {0}, cards: {1}, with risk: {2}", Turns, CardsPlayed, Riscs);//TODO - проверить корректность после переработки
         }
 
         void startParser(string line)
@@ -302,7 +298,7 @@ namespace Hanabi
                         var topDeck = GameDeck.getCard();
                         var playedCard = Players[ActivePlayerNumber].Play(Int32.Parse(action[2]), topDeck);
                         //risky turn check somewhere here.
-                        if (!GameBoard.AddCard(playedCard))
+                        if (!GameBoard.AddCard(playedCard)||GameBoard.Cost()==25||GameDeck.IsEmpty())
                             GameFinished = true;
                     }
                     break;
@@ -311,6 +307,8 @@ namespace Hanabi
                         //TODO:сделать проверку, а есть ли на этой позиции вообще карта
                         var topDeck = GameDeck.getCard();
                         Players[ActivePlayerNumber].Drop(Int32.Parse(action[2]), topDeck);
+                        if (GameDeck.IsEmpty())
+                           GameFinished = true;
                     }
                     break;
 
@@ -356,9 +354,9 @@ namespace Hanabi
                         }
                     }
                     break;
-                default:
+                case "Start":
                     {
-                        GameFinished = true;
+                        
                         nextGameStartString = line;
                         break;
                     }
@@ -371,18 +369,19 @@ namespace Hanabi
     {
         static void Main(string[] args)
         {
-            string startString = "";
+            string startString = Console.ReadLine();
+            HanabiGame newGame=new HanabiGame(startString); ;
             while (true)
-            {
-                if (startString == null) break;
-                if (startString == "")
-                    startString = Console.ReadLine();
-                HanabiGame newGame = new HanabiGame(startString);
+            {                
                 if (newGame.nextGameStartString != "")
                 {
                     startString = newGame.nextGameStartString;
+                    newGame = new HanabiGame(startString);
+                    continue;
                 }
-                else startString = "";
+                startString = Console.ReadLine();
+                if (startString == null) break;
+                newGame = new HanabiGame(startString);
             }
         }
     }
